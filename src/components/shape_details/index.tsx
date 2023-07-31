@@ -3,16 +3,16 @@ import { Container, Detail, Header } from "./styles";
 import { DetailButton } from "./detailButton";
 
 interface IProps {
-  onClick?: () => void;
-  shapeName?: string;
-  MouseX?: number;
-  MouseY?: number;
+  originX?: string;
+  originY?: string;
+  shapeName: string;
+  setModalOpen: Function;
 }
 export const ShapeDetails: FC<IProps> = ({
-  onClick,
-  shapeName = "",
-  MouseX,
-  MouseY
+  originX,
+  originY,
+  setModalOpen,
+  shapeName
 }) => {
   return (
     <Container>
@@ -23,12 +23,12 @@ export const ShapeDetails: FC<IProps> = ({
         <h2>{shapeName === "" ? "--" : shapeName}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse X - {MouseX}</h2>
+        <h2>Mouse X - {originX}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse Y - {MouseY}</h2>
+        <h2>Mouse Y - {originY}</h2>
       </Detail>
-      <DetailButton onClick={onClick} />
+      <DetailButton onClick={() => setModalOpen(true)} />
     </Container>
   );
 };

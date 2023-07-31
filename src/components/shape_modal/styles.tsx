@@ -6,13 +6,13 @@ export const Container = styled.div`
   height: 100vh;
   position: absolute;
   top: 0;
-  z-index: 2;
 `;
 export const White = styled.div`
   width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
+  z-index: 2;
 `;
 interface ShadeProps {
   modalOpen?: boolean;

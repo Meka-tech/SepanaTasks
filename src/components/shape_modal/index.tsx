@@ -17,9 +17,11 @@ import useClickOutside from "../../hooks/useClickOutside";
 import { useAppDispatch, useAppSelector } from "../../reduxApp/store";
 import { addShapeToArray } from "@/reduxApp/features/AddShape/shapeSlice";
 
-interface IProps {}
-export const ShapeModal: FC<IProps> = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+interface IProps {
+  modalOpen: boolean;
+  setModalOpen: Function;
+}
+export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
   const childRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   useClickOutside(childRef, () => setModalOpen(false));
   const dispatch = useAppDispatch();
@@ -30,17 +32,25 @@ export const ShapeModal: FC<IProps> = () => {
     xAxis: number;
     yAxis: number;
   };
-  const [shapeDetail, setShapeDetail] = useState<Shape>({
+  const [shapeDetail, setShapeDetail] = useState({
     name: "",
-    width: 0,
-    height: 0,
-    xAxis: 0,
-    yAxis: 0
+    width: "",
+    height: "",
+    xAxis: "",
+    yAxis: ""
   });
 
   const CreateShape = () => {
-    dispatch(addShapeToArray(shapeDetail));
-    setShapeDetail({ name: "", width: 0, height: 0, xAxis: 0, yAxis: 0 });
+    dispatch(
+      addShapeToArray({
+        name: shapeDetail.name,
+        width: parseInt(shapeDetail.width),
+        height: parseInt(shapeDetail.height),
+        xAxis: parseInt(shapeDetail.xAxis),
+        yAxis: parseInt(shapeDetail.yAxis)
+      })
+    );
+    setShapeDetail({ name: "", width: "", height: "", xAxis: "", yAxis: "" });
     setModalOpen(false);
   };
 
@@ -80,46 +90,50 @@ export const ShapeModal: FC<IProps> = () => {
               <ModalInput
                 label="Height"
                 placeholder="Enter height"
+                type="number"
                 onChange={(e) => {
                   setShapeDetail({
                     ...shapeDetail,
-                    height: parseInt(e.target.value)
+                    height: e.target.value
                   });
                 }}
-                value={shapeDetail.height.toString()}
+                value={shapeDetail.height}
               />
               <ModalInput
                 label="Width"
                 placeholder="Enter width"
+                type="number"
                 onChange={(e) => {
                   setShapeDetail({
                     ...shapeDetail,
-                    width: parseInt(e.target.value)
+                    width: e.target.value
                   });
                 }}
-                value={shapeDetail.width.toString().toString()}
+                value={shapeDetail.width}
               />
               <ModalInput
                 label="X position"
                 placeholder="Enter X value"
+                type="number"
                 onChange={(e) => {
                   setShapeDetail({
                     ...shapeDetail,
-                    xAxis: parseInt(e.target.value)
+                    xAxis: e.target.value
                   });
                 }}
-                value={shapeDetail.xAxis.toString()}
+                value={shapeDetail.xAxis}
               />
               <ModalInput
                 label="Y position"
                 placeholder="Enter Y value"
+                type="number"
                 onChange={(e) => {
                   setShapeDetail({
                     ...shapeDetail,
-                    yAxis: parseInt(e.target.value)
+                    yAxis: e.target.value
                   });
                 }}
-                value={shapeDetail.yAxis.toString()}
+                value={shapeDetail.yAxis}
               />
             </ModalInputGrid>
           </ModalInputs>
