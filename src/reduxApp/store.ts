@@ -2,9 +2,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import shapeReducer from "./features/AddShape/shapeSlice";
+import modalReducer from "./features/ModalSlice/modalSlice";
 
 const rootReducer = combineReducers({
-  shapes: shapeReducer
+  shapes: shapeReducer,
+  modals: modalReducer
 });
 
 export const store = configureStore({

@@ -6,22 +6,28 @@ import { Key, useEffect, useState } from "react";
 
 export default function Home() {
   const shapes = useAppSelector((state) => state.shapes.shapeArray);
-  const [modalOpen, setModalOpen] = useState(false);
   const [hoveredShapeName, setHoveredShapeName] = useState("");
   const [relativeXaxis, setRelativeXaxis] = useState();
   const [relativeYaxis, setRelativeYaxis] = useState();
 
+  type Shape = {
+    name: string;
+    width: number;
+    height: number;
+    xAxis: number;
+    yAxis: number;
+  };
+
   return (
     <main className={styles.main}>
       <ShapeDetails
-        setModalOpen={setModalOpen}
         shapeName={hoveredShapeName}
         originX={relativeXaxis}
         originY={relativeYaxis}
       />
-      <ShapeModal modalOpen={modalOpen} setModalOpen={setModalOpen} />
+      <ShapeModal />
       <div className={styles.shapeArea}>
-        {shapes.map((shape: any, i: Key) => {
+        {shapes.map((shape: Shape, i: Key) => {
           return (
             <Shape
               setRelativeXaxis={setRelativeXaxis}

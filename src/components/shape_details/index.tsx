@@ -1,19 +1,16 @@
 import React, { FC } from "react";
 import { Container, Detail, Header } from "./styles";
 import { DetailButton } from "./detailButton";
+import { useAppDispatch } from "../../reduxApp/store";
+import { OpenModal } from "@/reduxApp/features/ModalSlice/modalSlice";
 
 interface IProps {
   originX?: string;
   originY?: string;
   shapeName: string;
-  setModalOpen: Function;
 }
-export const ShapeDetails: FC<IProps> = ({
-  originX,
-  originY,
-  setModalOpen,
-  shapeName
-}) => {
+export const ShapeDetails: FC<IProps> = ({ originX, originY, shapeName }) => {
+  const dispatch = useAppDispatch();
   return (
     <Container>
       <Header>
@@ -28,7 +25,7 @@ export const ShapeDetails: FC<IProps> = ({
       <Detail>
         <h2>Mouse Y - {shapeName === "" ? "" : originY}</h2>
       </Detail>
-      <DetailButton onClick={() => setModalOpen(true)} />
+      <DetailButton onClick={() => dispatch(OpenModal())} />
     </Container>
   );
 };

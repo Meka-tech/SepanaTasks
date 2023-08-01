@@ -16,22 +16,18 @@ import { ModalInput } from "./modalInput";
 import useClickOutside from "../../hooks/useClickOutside";
 import { useAppDispatch, useAppSelector } from "../../reduxApp/store";
 import { addShapeToArray } from "@/reduxApp/features/AddShape/shapeSlice";
+import {
+  OpenModal,
+  CloseModal
+} from "@/reduxApp/features/ModalSlice/modalSlice";
 
-interface IProps {
-  modalOpen: boolean;
-  setModalOpen: Function;
-}
-export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
+interface IProps {}
+
+export const ShapeModal: FC<IProps> = ({}) => {
   const childRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  useClickOutside(childRef, () => setModalOpen(false));
+
   const dispatch = useAppDispatch();
-  type Shape = {
-    name: string;
-    width: number;
-    height: number;
-    xAxis: number;
-    yAxis: number;
-  };
+ 
   const [shapeDetail, setShapeDetail] = useState({
     name: "",
     width: "",
@@ -40,6 +36,7 @@ export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
     yAxis: ""
   });
 
+  const modalOpen = useAppSelector((state) => state.modals.ModalOpen);
   const CreateShape = () => {
     if (
       (shapeDetail.name,
@@ -58,15 +55,18 @@ export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
         })
       );
       setShapeDetail({ name: "", width: "", height: "", xAxis: "", yAxis: "" });
-      setModalOpen(false);
+      dispatch(CloseModal());
     }
   };
-
+  const CloseModalFunction = () => {
+    dispatch(CloseModal());
+  };
+  useClickOutside(childRef, CloseModalFunction);
   return (
     <Container>
       <White
         onClick={() => {
-          !modalOpen && setModalOpen(true);
+          !modalOpen && dispatch(OpenModal());
         }}
       />
       <Shade modalOpen={modalOpen}>
@@ -75,7 +75,7 @@ export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
             <h1>Create shape</h1>
 
             <Image
-              onClick={() => setModalOpen(false)}
+              onClick={CloseModalFunction}
               src={CloseIcon}
               alt="close icon"
               width={"50"}

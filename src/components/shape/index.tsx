@@ -21,10 +21,10 @@ export const Shape: FC<IShape> = ({
   setRelativeXaxis,
   setRelativeYaxis
 }) => {
-  const targetREf = useRef<HTMLDivElement>();
+  const shapeRef = useRef<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
-  const mouseMoveHandler = (event: { clientX: any; clientY: any }) => {
+  const mouseMoveHandler = (event: { clientX: number; clientY: number }) => {
     setMouseCoordinates({
       x: event.clientX,
       y: event.clientY
@@ -39,11 +39,12 @@ export const Shape: FC<IShape> = ({
   }, []);
 
   useEffect(() => {
-    const squareRect = targetREf.current?.getBoundingClientRect();
-    const squareX = squareRect?.left;
-    const squareY = squareRect?.top;
+    const squareRect = shapeRef.current?.getBoundingClientRect();
+    const squareX = squareRect ? squareRect?.left : 0;
+    const squareY = squareRect ? squareRect?.top : 0;
+    const squareHeight = squareRect ? squareRect?.height : 0;
     const x = mouseCoordinates.x - squareX;
-    const y = -(mouseCoordinates.y - squareY) + squareRect?.height;
+    const y = -(mouseCoordinates.y - squareY) + squareHeight;
     if (hovered) {
       setRelativeXaxis(x);
       setRelativeYaxis(y);
@@ -53,14 +54,19 @@ export const Shape: FC<IShape> = ({
       setRelativeXaxis(0);
       setRelativeYaxis(0);
     }
-
-    console.log(squareRect?.height);
-  }, [mouseCoordinates]);
+  }, [
+    hovered,
+    mouseCoordinates,
+    name,
+    setHoveredShapeName,
+    setRelativeXaxis,
+    setRelativeYaxis
+  ]);
 
   return (
     <Container
       hovered={hovered}
-      ref={targetREf}
+      ref={shapeRef}
       width={width}
       height={height}
       top={yValue}
@@ -68,7 +74,9 @@ export const Shape: FC<IShape> = ({
       onMouseEnter={() => {
         setHovered(true);
       }}
-      onMouseMove={() => {}}
+      onMouseMove={() => {
+        setHovered(true);
+      }}
       onMouseLeave={() => {
         setHovered(false);
       }}

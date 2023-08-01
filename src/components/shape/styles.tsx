@@ -20,4 +20,7 @@ export const Container = styled.div<ContainerProps>`
   z-index: 8;
   cursor: pointer;
   transition: all 0.2s ease;
+  :hover {
+    z-index: 40;
+  }
 `;
