@@ -127,6 +127,14 @@ export const InputBody = styled.div`
 `;
 
 export const Input = styled.input`
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  ::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   width: 96%;
   height: 100%;
   margin-left: auto;

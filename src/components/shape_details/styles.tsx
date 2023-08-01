@@ -1,8 +1,8 @@
 "use client";
+import { device } from "@/app/deviceStyle";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  color: red;
   width: 22.4rem;
   height: 33.6rem;
   border: 1px solid rgba(241, 242, 244, 1);
@@ -13,6 +13,13 @@ export const Container = styled.div`
   border-radius: 8px;
   z-index: 5;
   background-color: white;
+  @media ${device.tablet} {
+    width: 100%;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    height: 8rem;
+  }
 `;
 
 export const Header = styled.div`
@@ -28,6 +35,15 @@ export const Header = styled.div`
     font-size: 2rem;
     font-weight: 600;
   }
+  @media ${device.tablet} {
+    /* height: 100%;
+    border-right: 1px solid rgba(241, 242, 244, 1);
+    width: 15%;
+    h1 {
+      font-size: 1.2rem;
+    } */
+    display: none;
+  }
 `;
 
 export const Detail = styled(Header)`
@@ -36,6 +52,15 @@ export const Detail = styled(Header)`
     color: rgba(78, 93, 120, 1);
     font-weight: 500;
     font-size: 1.4rem;
+  }
+  @media ${device.tablet} {
+    display: flex;
+    height: 100%;
+    border-right: 1px solid rgba(241, 242, 244, 1);
+    width: 25%;
+    h2 {
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -60,5 +85,12 @@ export const ButtonContainer = styled.div`
     margin: 0;
     font-size: 1.4rem;
     font-weight: 400;
+  }
+  @media ${device.tablet} {
+    width: 8rem;
+    height: 3rem;
+    h2 {
+      font-size: 1rem;
+    }
   }
 `;
