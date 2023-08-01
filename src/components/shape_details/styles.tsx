@@ -36,12 +36,6 @@ export const Header = styled.div`
     font-weight: 600;
   }
   @media ${device.tablet} {
-    /* height: 100%;
-    border-right: 1px solid rgba(241, 242, 244, 1);
-    width: 15%;
-    h1 {
-      font-size: 1.2rem;
-    } */
     display: none;
   }
 `;

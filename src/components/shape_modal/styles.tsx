@@ -1,4 +1,5 @@
 "use client";
+import { device } from "@/app/deviceStyle";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -36,6 +37,10 @@ export const ModalContainer = styled.div`
   border-radius: 8px;
   width: 60rem;
   height: 55rem;
+  max-width: 80%;
+  @media ${device.tablet} {
+    height: 45rem;
+  }
 `;
 
 export const ModalHeader = styled.div`
@@ -62,6 +67,15 @@ export const ModalHeader = styled.div`
     right: 2rem;
     cursor: pointer;
   }
+  @media ${device.tablet} {
+    padding: 1.5rem;
+
+    h1 {
+      margin-left: 1rem;
+      margin-top: 1rem;
+      font-size: 2.4rem;
+    }
+  }
 `;
 
 export const ModalInputs = styled.div`
@@ -69,6 +83,10 @@ export const ModalInputs = styled.div`
   box-sizing: border-box;
   padding: 4rem 5rem;
   padding-bottom: 3rem;
+  @media ${device.tablet} {
+    padding: 2.5rem;
+    padding-bottom: 1.5rem;
+  }
 `;
 export const ModalInputGrid = styled.div`
   display: grid;
@@ -100,6 +118,12 @@ export const ButtonContainer = styled.div`
   :hover {
     transform: scale(1.1);
   }
+  @media ${device.tablet} {
+    height: 4rem;
+    h2 {
+      font-size: 1.2rem;
+    }
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -113,6 +137,9 @@ export const InputLabel = styled.h2`
   font-size: 1.2rem;
   font-weight: 500;
   margin-bottom: 5px;
+  @media ${device.tablet} {
+    font-size: 1rem;
+  }
 `;
 
 export const InputBody = styled.div`
@@ -124,6 +151,9 @@ export const InputBody = styled.div`
   background-color: rgba(241, 242, 244, 1);
   display: flex;
   align-items: center;
+  @media ${device.tablet} {
+    height: 4rem;
+  }
 `;
 
 export const Input = styled.input`
@@ -151,5 +181,8 @@ export const Input = styled.input`
 
   :focus {
     border: none;
+  }
+  @media ${device.tablet} {
+    font-size: 1.2rem;
   }
 `;
