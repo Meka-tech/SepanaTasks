@@ -23,10 +23,10 @@ export const ShapeDetails: FC<IProps> = ({
         <h2>{shapeName === "" ? "--" : shapeName}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse X - {originX}</h2>
+        <h2>Mouse X - {shapeName === "" ? "" : originX}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse Y - {originY}</h2>
+        <h2>Mouse Y - {shapeName === "" ? "" : originY}</h2>
       </Detail>
       <DetailButton onClick={() => setModalOpen(true)} />
     </Container>

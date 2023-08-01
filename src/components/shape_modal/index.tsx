@@ -41,17 +41,25 @@ export const ShapeModal: FC<IProps> = ({ modalOpen, setModalOpen }) => {
   });
 
   const CreateShape = () => {
-    dispatch(
-      addShapeToArray({
-        name: shapeDetail.name,
-        width: parseInt(shapeDetail.width),
-        height: parseInt(shapeDetail.height),
-        xAxis: parseInt(shapeDetail.xAxis),
-        yAxis: parseInt(shapeDetail.yAxis)
-      })
-    );
-    setShapeDetail({ name: "", width: "", height: "", xAxis: "", yAxis: "" });
-    setModalOpen(false);
+    if (
+      (shapeDetail.name,
+      shapeDetail.width,
+      shapeDetail.height,
+      shapeDetail.xAxis,
+      shapeDetail.yAxis)
+    ) {
+      dispatch(
+        addShapeToArray({
+          name: shapeDetail.name,
+          width: parseInt(shapeDetail.width),
+          height: parseInt(shapeDetail.height),
+          xAxis: parseInt(shapeDetail.xAxis),
+          yAxis: parseInt(shapeDetail.yAxis)
+        })
+      );
+      setShapeDetail({ name: "", width: "", height: "", xAxis: "", yAxis: "" });
+      setModalOpen(false);
+    }
   };
 
   return (

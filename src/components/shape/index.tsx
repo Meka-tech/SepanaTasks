@@ -22,8 +22,7 @@ export const Shape: FC<IShape> = ({
   setRelativeYaxis
 }) => {
   const targetREf = useRef<HTMLDivElement>();
-  const [relativeX, setRelativeX] = useState<number>(0);
-  const [relativeY, setRelativeY] = useState<number>(0);
+  const [hovered, setHovered] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
   const mouseMoveHandler = (event: { clientX: any; clientY: any }) => {
     setMouseCoordinates({
@@ -42,30 +41,36 @@ export const Shape: FC<IShape> = ({
   useEffect(() => {
     const squareRect = targetREf.current?.getBoundingClientRect();
     const squareX = squareRect?.left;
-    const squareY = squareRect?.bottom;
+    const squareY = squareRect?.top;
     const x = mouseCoordinates.x - squareX;
-    const y = squareY - mouseCoordinates.y;
-    setRelativeX(x);
-    setRelativeY(y);
-    console.log(squareRect, mouseCoordinates.x, mouseCoordinates.y);
+    const y = -(mouseCoordinates.y - squareY) + squareRect?.height;
+    if (hovered) {
+      setRelativeXaxis(x);
+      setRelativeYaxis(y);
+      setHoveredShapeName(name);
+    } else {
+      setHoveredShapeName("");
+      setRelativeXaxis(0);
+      setRelativeYaxis(0);
+    }
+
+    console.log(squareRect?.height);
   }, [mouseCoordinates]);
 
   return (
     <Container
+      hovered={hovered}
       ref={targetREf}
       width={width}
       height={height}
       top={yValue}
       left={xValue}
       onMouseEnter={() => {
-        setHoveredShapeName(name);
-        setRelativeXaxis(relativeX);
-        setRelativeYaxis(relativeY);
+        setHovered(true);
       }}
+      onMouseMove={() => {}}
       onMouseLeave={() => {
-        setHoveredShapeName("");
-        setRelativeXaxis(0);
-        setRelativeYaxis(0);
+        setHovered(false);
       }}
     ></Container>
   );
