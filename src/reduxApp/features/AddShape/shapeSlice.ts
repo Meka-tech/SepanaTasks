@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import {RootState} from "hooks"
 
 interface Shape {
   name: string;

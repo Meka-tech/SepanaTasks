@@ -2,13 +2,15 @@
 import styles from "./page.module.css";
 import { Shape, ShapeDetails, ShapeModal } from "@/components";
 import { useAppSelector } from "../../src/reduxApp/store";
-import { Key, useEffect, useState } from "react";
+import { Key, useState } from "react";
 
 export default function Home() {
   const shapes = useAppSelector((state) => state.shapes.shapeArray);
-  const [hoveredShapeName, setHoveredShapeName] = useState("");
-  const [relativeXaxis, setRelativeXaxis] = useState();
-  const [relativeYaxis, setRelativeYaxis] = useState();
+  const [activeShapeDetail, setActiveShapeDetail] = useState({
+    name: "",
+    x: 0,
+    y: 0
+  });
 
   type Shape = {
     name: string;
@@ -20,20 +22,14 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <ShapeDetails
-        shapeName={hoveredShapeName}
-        originX={relativeXaxis}
-        originY={relativeYaxis}
-      />
-      <ShapeModal />
+      <ShapeDetails detail={activeShapeDetail} />
+      <ShapeModal setHoverName={setActiveShapeDetail} />
       <div className={styles.shapeArea}>
         {shapes.map((shape: Shape, i: Key) => {
           return (
             <Shape
-              setRelativeXaxis={setRelativeXaxis}
-              setRelativeYaxis={setRelativeYaxis}
+              setShapeDetail={setActiveShapeDetail}
               name={shape.name}
-              setHoveredShapeName={setHoveredShapeName}
               key={i}
               width={shape.width}
               height={shape.height}

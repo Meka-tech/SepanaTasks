@@ -7,9 +7,7 @@ interface IShape {
   xValue: number;
   yValue: number;
   name: string;
-  setHoveredShapeName: Function;
-  setRelativeXaxis: Function;
-  setRelativeYaxis: Function;
+  setShapeDetail: Function;
 }
 export const Shape: FC<IShape> = ({
   width,
@@ -17,13 +15,12 @@ export const Shape: FC<IShape> = ({
   xValue,
   yValue,
   name,
-  setHoveredShapeName,
-  setRelativeXaxis,
-  setRelativeYaxis
+  setShapeDetail
 }) => {
-  const shapeRef = useRef<HTMLDivElement>();
+  const shapeRef = React.createRef<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+
   const mouseMoveHandler = (event: { clientX: number; clientY: number }) => {
     setMouseCoordinates({
       x: event.clientX,
@@ -39,41 +36,32 @@ export const Shape: FC<IShape> = ({
   }, []);
 
   useEffect(() => {
-    const squareRect = shapeRef.current?.getBoundingClientRect();
-    const squareX = squareRect ? squareRect?.left : 0;
-    const squareY = squareRect ? squareRect?.top : 0;
-    const squareHeight = squareRect ? squareRect?.height : 0;
+    const shapeRect = shapeRef.current?.getBoundingClientRect(); //get Shape properties
+    const squareX = shapeRect ? shapeRect?.left : 0; //get distance from left side of the screen to left of shape
+    const squareY = shapeRect ? shapeRect?.top : 0; //get distance from top side of the screen to top of shape
+    const squareHeight = shapeRect ? shapeRect?.height : 0; //shape height
     const x = mouseCoordinates.x - squareX;
     const y = -(mouseCoordinates.y - squareY) + squareHeight;
     if (hovered) {
-      setRelativeXaxis(x);
-      setRelativeYaxis(y);
-      setHoveredShapeName(name);
-    } else {
-      setHoveredShapeName("");
-      setRelativeXaxis(0);
-      setRelativeYaxis(0);
+      setShapeDetail({ name, x, y });
     }
   }, [
     hovered,
-    mouseCoordinates,
+    mouseCoordinates.x,
+    mouseCoordinates.y,
     name,
-    setHoveredShapeName,
-    setRelativeXaxis,
-    setRelativeYaxis
+    setShapeDetail,
+    shapeRef
   ]);
 
   return (
     <Container
-      hovered={hovered}
+      hovered={hovered.toString()}
       ref={shapeRef}
       width={width}
       height={height}
       top={yValue}
       left={xValue}
-      onMouseEnter={() => {
-        setHovered(true);
-      }}
       onMouseMove={() => {
         setHovered(true);
       }}

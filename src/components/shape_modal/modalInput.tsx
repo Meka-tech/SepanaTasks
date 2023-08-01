@@ -10,7 +10,7 @@ export const ModalInput: FC<IProps> = ({ label, ...rest }) => {
     <InputContainer>
       <InputLabel>{label}</InputLabel>
       <InputBody>
-        <Input {...rest}  />
+        <Input {...rest} />
       </InputBody>
     </InputContainer>
   );

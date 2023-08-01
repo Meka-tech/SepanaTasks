@@ -8,7 +8,7 @@ export const Container = styled.div`
   border: 1px solid rgba(241, 242, 244, 1);
   box-shadow: 0px 16px 24px 0px rgba(10, 31, 68, 0.08);
   position: absolute;
-  bottom: 2%;
+  bottom: 4%;
   right: 5%;
   border-radius: 8px;
   z-index: 5;
@@ -51,7 +51,7 @@ export const Detail = styled(Header)`
     display: flex;
     height: 100%;
     border-right: 1px solid rgba(241, 242, 244, 1);
-    width: 25%;
+    width: 23%;
     h2 {
       font-size: 1.2rem;
     }

@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import {RootState} from "hooks"
+import { createSlice } from "@reduxjs/toolkit";
 
 interface ModalState {
   ModalOpen: boolean;

@@ -21,13 +21,15 @@ import {
   CloseModal
 } from "@/reduxApp/features/ModalSlice/modalSlice";
 
-interface IProps {}
+interface IProps {
+  setHoverName: Function; //set the hover name to nothing to cancel out the hover effect
+}
 
-export const ShapeModal: FC<IProps> = ({}) => {
+export const ShapeModal: FC<IProps> = ({ setHoverName }) => {
   const childRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const dispatch = useAppDispatch();
- 
+
   const [shapeDetail, setShapeDetail] = useState({
     name: "",
     width: "",
@@ -39,11 +41,11 @@ export const ShapeModal: FC<IProps> = ({}) => {
   const modalOpen = useAppSelector((state) => state.modals.ModalOpen);
   const CreateShape = () => {
     if (
-      (shapeDetail.name,
-      shapeDetail.width,
-      shapeDetail.height,
-      shapeDetail.xAxis,
-      shapeDetail.yAxis)
+      shapeDetail.name &&
+      shapeDetail.width &&
+      shapeDetail.height &&
+      shapeDetail.xAxis &&
+      shapeDetail.yAxis
     ) {
       dispatch(
         addShapeToArray({
@@ -63,13 +65,13 @@ export const ShapeModal: FC<IProps> = ({}) => {
   };
   useClickOutside(childRef, CloseModalFunction);
   return (
-    <Container>
+    <Container onMouseOver={() => setHoverName({ name: "", x: 0, y: 0 })}>
       <White
         onClick={() => {
           !modalOpen && dispatch(OpenModal());
         }}
       />
-      <Shade modalOpen={modalOpen}>
+      <Shade open={modalOpen}>
         <ModalContainer ref={childRef}>
           <ModalHeader>
             <h1>Create shape</h1>

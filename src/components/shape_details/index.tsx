@@ -5,11 +5,9 @@ import { useAppDispatch } from "../../reduxApp/store";
 import { OpenModal } from "@/reduxApp/features/ModalSlice/modalSlice";
 
 interface IProps {
-  originX?: string;
-  originY?: string;
-  shapeName: string;
+  detail;
 }
-export const ShapeDetails: FC<IProps> = ({ originX, originY, shapeName }) => {
+export const ShapeDetails: FC<IProps> = ({ detail }) => {
   const dispatch = useAppDispatch();
   return (
     <Container>
@@ -17,13 +15,13 @@ export const ShapeDetails: FC<IProps> = ({ originX, originY, shapeName }) => {
         <h1>Details</h1>
       </Header>
       <Detail>
-        <h2>{shapeName === "" ? "--" : shapeName}</h2>
+        <h2>{detail.name === "" ? "--" : detail.name}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse X - {shapeName === "" ? "" : originX}</h2>
+        <h2>Mouse X - {detail.name === "" ? "" : detail.x}</h2>
       </Detail>
       <Detail>
-        <h2>Mouse Y - {shapeName === "" ? "" : originY}</h2>
+        <h2>Mouse Y - {detail.name === "" ? "" : detail.y}</h2>
       </Detail>
       <DetailButton onClick={() => dispatch(OpenModal())} />
     </Container>

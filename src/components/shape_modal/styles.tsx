@@ -16,20 +16,20 @@ export const White = styled.div`
   z-index: 2;
 `;
 interface ShadeProps {
-  modalOpen?: boolean;
+  open?: boolean;
 }
 export const Shade = styled.div<ShadeProps>`
   width: 100vw;
   height: 100vh;
   position: absolute;
-  background-color: #0000005c;
+  background-color: rgba(3, 11, 34, 0.2);
   top: 0;
-  z-index: ${(props) => (props.modalOpen ? "10" : "-1")};
+  z-index: ${(props) => (props.open ? "10" : "-1")};
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: ${(props) => (props.modalOpen ? "1" : "0")};
-  transition: all ease 0.2s;
+  opacity: ${(props) => (props.open ? "1" : "0")};
+  transition: all ease 0.1s;
 `;
 
 export const ModalContainer = styled.div`
@@ -115,9 +115,6 @@ export const ButtonContainer = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
   }
-  :hover {
-    transform: scale(1.1);
-  }
   @media ${device.tablet} {
     height: 4rem;
     h2 {
@@ -157,14 +154,6 @@ export const InputBody = styled.div`
 `;
 
 export const Input = styled.input`
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  ::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   width: 96%;
   height: 100%;
   margin-left: auto;
@@ -175,10 +164,6 @@ export const Input = styled.input`
   font-weight: 500;
   color: black;
   line-height: 2.4rem;
-  ::placeholder {
-    color: rgba(176, 183, 195, 1);
-  }
-
   :focus {
     border: none;
   }
