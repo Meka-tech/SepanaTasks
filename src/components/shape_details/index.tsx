@@ -5,7 +5,11 @@ import { useAppDispatch } from "../../reduxApp/store";
 import { OpenModal } from "@/reduxApp/features/ModalSlice/modalSlice";
 
 interface IProps {
-  detail;
+  detail: {
+    name: string;
+    x: number;
+    y: number;
+  };
 }
 export const ShapeDetails: FC<IProps> = ({ detail }) => {
   const dispatch = useAppDispatch();
