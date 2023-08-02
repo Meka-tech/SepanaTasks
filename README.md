@@ -41,7 +41,7 @@ Styled-components is utilized for styling the frontend components. It allows wri
 
 ## Components
 
-#Shape Detail
+# Shape Detail
 
 The Shape component is a custom shape creator that accepts various props to define the dimensions, position, and name of the shape. It provides real-time hovering interaction to display relative x and y coordinates as the user moves their mouse cursor over the shape.
 
@@ -53,7 +53,7 @@ useCallback is utilized to memoize the handleShapeDetail function to prevent unn
 The component renders a Container element, representing the shape. It uses onMouseMove and onMouseLeave events to update the hovered state based on whether the user hovers over or leaves the shape, respectively.
 The handleShapeDetail function is called when the user hovers over the shape, and it updates the shape details only if the shape is hovered.
 This Shape component can be used in a larger application for creating and interacting with custom shapes while getting real-time feedback on their relative coordinates.
-
+```
 import React, { FC, useRef, useState, useEffect, useCallback } from "react";
 import { Container } from "./styles";
 
@@ -169,7 +169,7 @@ export const Shape: FC<IShape> = ({
       }}
     ></Container>
   );
-};
+};```
 
 
 
