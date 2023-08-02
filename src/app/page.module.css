@@ -13,3 +13,9 @@
   position: relative;
   overflow: hidden;
 }
+
+@media all and (max-width: 768px) {
+  .shapeArea {
+    overflow: scroll;
+  }
+}

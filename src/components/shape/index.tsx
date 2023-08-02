@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState, useEffect } from "react";
+import React, { FC, useRef, useState, useEffect, useCallback } from "react";
 import { Container } from "./styles";
 
 interface IShape {
@@ -21,39 +21,38 @@ export const Shape: FC<IShape> = ({
   const [hovered, setHovered] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
 
-  const mouseMoveHandler = (event: { clientX: number; clientY: number }) => {
-    setMouseCoordinates({
-      x: event.clientX,
-      y: event.clientY
-    });
-  };
-
   useEffect(() => {
+    const mouseMoveHandler = (event: { clientX: number; clientY: number }) => {
+      setMouseCoordinates({
+        x: event.clientX,
+        y: event.clientY
+      });
+    };
     window.addEventListener("mousemove", mouseMoveHandler);
     return () => {
       window.removeEventListener("mousemove", mouseMoveHandler);
     };
   }, []);
 
+  const handleShapeDetail = useCallback(
+    (name: string, x: number, y: number) => {
+      if (hovered) {
+        setShapeDetail({ name, x, y });
+      }
+    },
+    [hovered, setShapeDetail]
+  );
   useEffect(() => {
-    const shapeRect = shapeRef.current?.getBoundingClientRect(); //get Shape properties
-    const squareX = shapeRect ? shapeRect?.left : 0; //get distance from left side of the screen to left of shape
-    const squareY = shapeRect ? shapeRect?.top : 0; //get distance from top side of the screen to top of shape
-    const squareHeight = shapeRect ? shapeRect?.height : 0; //shape height
+    const shapeRect = shapeRef.current?.getBoundingClientRect();
+    const squareX = shapeRect ? shapeRect?.left : 0;
+    const squareY = shapeRect ? shapeRect?.top : 0;
+    const squareHeight = shapeRect ? shapeRect?.height : 0;
     const x = mouseCoordinates.x - squareX;
     const y = -(mouseCoordinates.y - squareY) + squareHeight;
-    if (hovered) {
-      setShapeDetail({ name, x, y });
-    }
-  }, [
-    hovered,
-    mouseCoordinates.x,
-    mouseCoordinates.y,
-    name,
-    setShapeDetail,
-    shapeRef
-  ]);
 
+    // Call the function instead of updating the state directly
+    handleShapeDetail(name, x, y);
+  }, [hovered, mouseCoordinates, name, shapeRef]);
   return (
     <Container
       hovered={hovered.toString()}
