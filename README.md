@@ -487,8 +487,28 @@ export const ShapeModal: FC<IProps> = ({ setHoverName }) => {
       </Shade>
     </Container>
   );
-};
 ```
+
+### Potential Extensions:
+
+Shape Customization:
+Enhance the application by allowing users to customize the appearance and properties of each shape further, such as color, border style, and rotation.
+
+Multiple Shapes Support:
+Extend the application to enable users to create and manage multiple shapes simultaneously, facilitating complex designs and layouts.
+
+Save and Load Functionality:
+Implement a feature to save and load previously created shapes, enabling users to revisit and modify their designs.
+
+Responsive Design:
+Ensure that the application is fully responsive, allowing users to create and interact with shapes on various devices, including desktops, tablets, and mobile phones.
+
+Editing and Deleting Shapes:
+Implement a feature to enable users to edit and/or delete already made shapes.
+
+Authentication and User Accounts:
+Add user authentication to enable users to save their projects and share them with others.
+
 
 
 
