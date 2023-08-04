@@ -36,23 +36,22 @@ export const Shape: FC<IShape> = ({
 
   const handleShapeDetail = useCallback(
     (name: string, x: number, y: number) => {
-      if (hovered) {
-        setShapeDetail({ name, x, y });
-      }
+      setShapeDetail({ name, x, y });
     },
-    [hovered, setShapeDetail]
+    [setShapeDetail]
   );
-  useEffect(() => {
+
+  const GetShapeDetail = () => {
+    setHovered(true);
     const shapeRect = shapeRef.current?.getBoundingClientRect();
     const squareX = shapeRect ? shapeRect?.left : 0;
     const squareY = shapeRect ? shapeRect?.top : 0;
     const squareHeight = shapeRect ? shapeRect?.height : 0;
     const x = mouseCoordinates.x - squareX;
     const y = -(mouseCoordinates.y - squareY) + squareHeight;
-
-    // Call the function instead of updating the state directly
     handleShapeDetail(name, x, y);
-  }, [hovered, mouseCoordinates, name, shapeRef]);
+  };
+
   return (
     <Container
       hovered={hovered.toString()}
@@ -61,11 +60,8 @@ export const Shape: FC<IShape> = ({
       height={height}
       top={yValue}
       left={xValue}
-      onMouseMove={() => {
-        setHovered(true);
-      }}
-      onMouseLeave={() => {
-        setHovered(false);
+      onMouseMove={(e) => {
+        GetShapeDetail();
       }}
     ></Container>
   );
