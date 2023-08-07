@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { Modal, Shape, ShapeDetails } from "@/components";
 import { useAppSelector } from "../../src/reduxApp/store";
 import { Key, useState, useEffect } from "react";
-import { IShapeDrawing } from "@/components/Shape/Shape.types";
+import { IShapeDrawing } from "@/components/shape/Shape.types";
 
 export default function Home() {
   const shapes = useAppSelector((state) => state.shapes.shapeArray);
