@@ -1,15 +1,8 @@
-import React, { FC, useRef, useState, useEffect, useCallback } from "react";
-import { Container } from "./styles";
+import React, { FC, useState, useEffect, useCallback } from "react";
+import { ShapeContainer } from "./ShapeStyles";
+import { IShapeProps } from "./Shape.types";
 
-interface IShape {
-  width: number;
-  height: number;
-  xValue: number;
-  yValue: number;
-  name: string;
-  setShapeDetail: Function;
-}
-export const Shape: FC<IShape> = ({
+export const Shape: FC<IShapeProps> = ({
   width,
   height,
   xValue,
@@ -20,6 +13,7 @@ export const Shape: FC<IShape> = ({
   const shapeRef = React.createRef<HTMLDivElement>();
   const [hovered, setHovered] = useState(false);
   const [mouseCoordinates, setMouseCoordinates] = useState({ x: 0, y: 0 });
+  const [countdown, setCountdown] = useState(6);
 
   useEffect(() => {
     const mouseMoveHandler = (event: { clientX: number; clientY: number }) => {
@@ -52,8 +46,26 @@ export const Shape: FC<IShape> = ({
     handleShapeDetail(name, x, y);
   };
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (!hovered) {
+      timer = setInterval(() => {
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+    } else {
+      setCountdown(5);
+    }
+
+    if (countdown === 0) {
+      handleShapeDetail("", 0, 0);
+    }
+    return () => {
+      clearInterval(timer);
+    };
+  }, [hovered, countdown, handleShapeDetail]);
   return (
-    <Container
+    <ShapeContainer
       hovered={hovered.toString()}
       ref={shapeRef}
       width={width}
@@ -63,6 +75,12 @@ export const Shape: FC<IShape> = ({
       onMouseMove={(e) => {
         GetShapeDetail();
       }}
-    ></Container>
+      onMouseEnter={() => {
+        setHovered(true);
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+      }}
+    ></ShapeContainer>
   );
 };

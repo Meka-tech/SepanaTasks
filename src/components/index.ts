@@ -1,3 +1,3 @@
-export * from "./shape_details";
-export * from "./shape_modal";
-export * from "./shape";
+export * from "./Modal";
+export * from "./Shape-Detail";
+export * from "./Shape";

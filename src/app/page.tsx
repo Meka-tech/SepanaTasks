@@ -1,8 +1,9 @@
 "use client";
 import styles from "./page.module.css";
-import { Shape, ShapeDetails, ShapeModal } from "@/components";
+import { Modal, Shape, ShapeDetails } from "@/components";
 import { useAppSelector } from "../../src/reduxApp/store";
-import { Key, useState } from "react";
+import { Key, useState, useEffect } from "react";
+import { IShapeDrawing } from "@/components/Shape/Shape.types";
 
 export default function Home() {
   const shapes = useAppSelector((state) => state.shapes.shapeArray);
@@ -12,30 +13,27 @@ export default function Home() {
     y: 0
   });
 
-  type Shape = {
-    name: string;
-    width: number;
-    height: number;
-    xAxis: number;
-    yAxis: number;
-  };
-
   return (
     <main className={styles.main}>
-      <ShapeDetails detail={activeShapeDetail} />
-      <ShapeModal setHoverName={setActiveShapeDetail} />
+      <ShapeDetails
+        detail={activeShapeDetail}
+        setDetail={setActiveShapeDetail}
+      />
+      <Modal />
       <div className={styles.shapeArea}>
-        {shapes.map((shape: Shape, i: Key) => {
+        {shapes.map((shape: IShapeDrawing, i: Key) => {
           return (
-            <Shape
-              setShapeDetail={setActiveShapeDetail}
-              name={shape.name}
-              key={i}
-              width={shape.width}
-              height={shape.height}
-              xValue={shape.xAxis}
-              yValue={shape.yAxis}
-            />
+            <>
+              <Shape
+                setShapeDetail={setActiveShapeDetail}
+                name={shape.name}
+                key={i}
+                width={shape.width}
+                height={shape.height}
+                xValue={shape.xAxis}
+                yValue={shape.yAxis}
+              />
+            </>
           );
         })}
       </div>
